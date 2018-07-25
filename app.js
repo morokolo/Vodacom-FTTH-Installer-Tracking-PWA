@@ -6,14 +6,17 @@ var express = require('express')
 
 server.listen(8080);
 
+app.use(express.static('assets'));
+
 // routing
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/profile_icon', function (req, res) {
-    res.sendFile(__dirname + '/profile_icon.png');
+app.get('/installer', function (req, res) {
+    res.sendFile(__dirname + '/installer.png');
 });
+
 
 // usernames which are currently connected to the chat
 var usernames = {};

@@ -94,12 +94,18 @@
 
         var map = new google.maps.Map(document.getElementById('map-canvas'), {
             zoom: 15,
-			scale: 2,
+			scale: 1,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
+        var geocoder = new google.maps.Geocoder();
         var directionsService = new google.maps.DirectionsService();
-        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+            polylineOptions: {
+                strokeColor: "black"
+            },
+            suppressMarkers: true
+        });
         directionsDisplay.setMap(map);
         directionsDisplay.setPanel(document.getElementById('panel'));
 
@@ -166,21 +172,50 @@
         function showPosition(position) {
             $('#demo').append('<div>' + "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude+ '</div>');
 
-            var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-            var end = new google.maps.Marker({
-                position: new google.maps.LatLng(-25.9717542, 28.1232506),
-                map: map,
-                icon: image
-            });
-
             var request = {
                 origin: new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
                 //destination: new google.maps.LatLng(-25.9683253,28.1259053),
-                destination: end,
-                //destination: 'Midrand Lutheran Church',
-                travelMode: google.maps.DirectionsTravelMode.WALKING
+                //destination: new google.maps.LatLng(-25.9728385, 28.1264963),
+               	// destination: '6th Rd,Midridge Park, Midrand',
+                destination: 'Vodacom Midrand office staff entrance',
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
             };
 
+
+            var installerImage = new google.maps.MarkerImage('/installer.png',
+                // This marker is 129 pixels wide by 42 pixels tall.
+                new google.maps.Size(100, 100),
+                // The origin for this image is 0,0.
+                new google.maps.Point(0,0),
+                // The anchor for this image is the base of the flagpole at 18,42.
+                new google.maps.Point(18, 42)
+            );
+
+            var customerImage = new google.maps.MarkerImage('/pin2.png',
+                // This marker is 129 pixels wide by 42 pixels tall.
+                new google.maps.Size(60, 60),
+                // The origin for this image is 0,0.
+                new google.maps.Point(0,0),
+                // The anchor for this image is the base of the flagpole at 18,42.
+                new google.maps.Point(23, 10)
+            );
+
+            //https://github.com/terikon/marker-animate-unobtrusive#SlidingMarker.getEasing
+
+            var address = request.destination;
+
+            geocoder.geocode( { 'address': address}, function(results, status) {
+
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    var geocodedAddress = new google.maps.LatLng(latitude, longitude);
+                    createMarker(geocodedAddress, customerImage);
+                }
+            });
+
+            createMarker(request.origin, installerImage);
+            //createMarker(request.destination, customerImage);
 
 
             directionsService.route(request, function(response, status) {
@@ -191,6 +226,19 @@
                     directionsDisplay.setDirections(response);
                 }
             });
+
+        }
+
+
+
+        function createMarker(latlng, imageName) {
+
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                icon: imageName
+            });
+
 
         }
 
