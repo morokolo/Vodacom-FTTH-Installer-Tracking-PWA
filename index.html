@@ -100,6 +100,7 @@
         var map = new google.maps.Map(document.getElementById('map-canvas'), {
             zoom: 15,
 			scale: 1,
+            mapTypeControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
@@ -109,7 +110,7 @@
             polylineOptions: {
                 strokeColor: "black"
             },
-            suppressMarkers: true
+            //suppressMarkers: true
         });
         directionsDisplay.setMap(map);
         directionsDisplay.setPanel(document.getElementById('panel'));
@@ -213,7 +214,7 @@
             var address = request.destination;
 
             geocoder.geocode( { 'address': address}, function(results, status) {
-                map.fitBounds(results[0].geometry.viewport);
+                //map.fitBounds(results[0].geometry.viewport);
                 if (status == google.maps.GeocoderStatus.OK) {
                     var latitude = results[0].geometry.location.lat();
                     var longitude = results[0].geometry.location.lng();
