@@ -31,7 +31,7 @@ var rooms = [];
 
 io.sockets.on('connection', function (socket) {
 
-
+    socket.emit("Testing");
     // when the client emits 'adduser', this listens and executes
     socket.on('adduser', function({username, salesOrderNumber}){
         // store the username in the socket session for this client
