@@ -48,12 +48,13 @@ $(function(){
             }
             else
             {
-               // show customer tings
+                $('.customer-nav-panel').show();
             }
         }
         else
         {
             $('.error').show();
+            $('.customer-nav-panel').show();
             $('#map').hide();
             $('#bottom-bar').hide();
         }

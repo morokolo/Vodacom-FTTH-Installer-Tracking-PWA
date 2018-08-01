@@ -185,6 +185,14 @@ button:focus {
 	z-index: 9999999;
 }
 
+.customer-nav-panel {
+	width: 15%;
+	position: absolute;
+	z-index: 9999999;
+	right: 0%;
+	top: 2%;
+}
+
 .installer-heading-container {
 	background: #c7c224;
 	color: #ffff;
