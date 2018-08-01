@@ -1,356 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title></title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title> Home</title>
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/icon" href="assets/images/favicon.ico"/>
+	<!-- Font Awesome -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link href="bootstrap.min.css" rel="stylesheet">
+	<!-- Main Style -->
+	<link href="style.css" rel="stylesheet">
+	<!-- Open Sans for body font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
+	<!-- Montserrat for title -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
 	<script type="text/javascript"
 			src="https://maps.google.com/maps/api/js?key=AIzaSyC8080U0sQQ0ilWJe_e6r-GfkM8fhjewSs"></script>
-	<script src="/socket.io/socket.io.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-	<script src="/jquery.easing.1.3.js" type="text/javascript"></script>
-	<script src="/markerAnimate.js" type="text/javascript"></script>
-	<script src="/SlidingMarker.js" type="text/javascript"></script>
 	<style>
+		/* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+		#map {
+			height: 100%;
+		}
+		/* Optional: Makes the sample page fill the window. */
 		html, body {
 			height: 100%;
 			margin: 0;
 			padding: 0;
 		}
-		.container, .container > div, .container > div #map-canvas {
-			height: inherit;
-		}
-		.driver-information {
-			display: flex;
-			background: #ffffff;
-			position: fixed;
-			bottom: 0;
-			width: 100%;
-			padding: 15px;
-		}
-		p.driver-car-details {
-			margin: 0;
-			line-height: 18px;
-			font-size: 15px;
-			font-family: sans-serif;
-			font-weight: 300;
-		}
-		.fixed{
-			width: 20%;
-			padding: 5px;
-		}
-		.flex-item{
-			padding: 5px;
-			flex-grow: 1;
-		}
-		.profile-icon {
-			border: 2px solid #8e8a8a;
-			width: 60px;
-			height: 60px;
-			border-radius: 60px;
-		}
-		button.call-button {
-			border: 1px solid #8e8a8a;
-			background: #fff;
-			margin-top: 5px;
-			border-radius: 2px;
-			width: 20%;
-			padding: 5px;
-			color: #E60000;
-			font-weight: 600;
-		}
-		.bold {
-			font-weight: bold;
-		}
-		div#eta-info {
-			position: absolute;
-			top: 71%;
-			background: #000000;
-			width: 44px;
-			height: 44px;
-			border: 3px solid #fff;
-			border-radius: 50px;
-			color: #fff;
-			text-align: center;
-		}
-		span.time {
-			padding: 2px !important;
-			font-size: 13px;
-			text-transform: uppercase;
-			font-family: sans-serif;
-		}
 	</style>
-<script>
-
-
-	// on load of page
-	$(function(){
-
-        SlidingMarker.initializeGlobally();
-        getInstallerLocation();
-
-        setInterval(function(){
-            getInstallerLocation();
-            console.log('updated ... ');
-            //send the updated location of the installer and redraw the pin
-        }, 15000); //15 second refresh
-
-        var socket = io.connect('http://localhost:8080');
-
-        var map = new google.maps.Map(document.getElementById('map-canvas'), {
-            zoom: 15,
-			scale: 1,
-            mapTypeControl: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        var geocoder = new google.maps.Geocoder();
-        var directionsService = new google.maps.DirectionsService();
-        var directionsDisplay = new google.maps.DirectionsRenderer({
-            polylineOptions: {
-                strokeColor: "black"
-            },
-            //suppressMarkers: true
-        });
-        directionsDisplay.setMap(map);
-        directionsDisplay.setPanel(document.getElementById('panel'));
-
-        // on connection to server, ask for user's name with an anonymous callback
-        socket.on('connect', function(){
-            // call the server-side function 'adduser' and send one parameter (value of prompt)
-            var username = getQueryVariable("username");
-            var salesOrderNumber = getQueryVariable("salesordernumber");
-            var userType = getQueryVariable("type");
-            if(username !="" && salesOrderNumber != ""){
-                socket.emit('adduser', {username, salesOrderNumber});
-                if(userType == "installer")
-                {
-                    getInstallerLocation();
-                    $('#tracking-details').html('');
-                    var html = "<div class=\"driver-information\">\n" +
-                        "\t\t\t<div class=\"fixed\">\n" +
-                        "\t\t\t\t<img src=\"http://d2m1kqghccc19k.cloudfront.net/wp-content/uploads/2017/11/28171621/bfdc2e8f2262d629bf7ca768978fe404.jpg\" class=\"profile-icon\">\n" +
-                        "\t\t\t</div>\n" +
-                        "\t\t\t<div class=\"flex-item\">\n" +
-                        "\t\t\t\t<p class=\"driver-car-details\">Samantha Roux</p>\n" +
-                        "\t\t\t\t<p class=\"driver-car-details\">086 Vodacom Boulevard</p>\n" +
-                        "\t\t\t\t<button class=\"call-button\" >Call</button>\n" +
-                        "\t\t\t</div>\n" +
-                        "\t\t</div>";
-
-                    $('#tracking-details').html(html);
-                }
-                else
-                {
-                    $('#tracking-details').html('');
-                    var html = "<div class=\"driver-information\">\n" +
-                        "\t\t\t<div class=\"fixed\">\n" +
-                        "\t\t\t\t<img src=\"https://biology.stanford.edu/sites/default/files/9e55531dd374c731136e4cd0d68045cd.jpg\" class=\"profile-icon\">\n" +
-                        "\t\t\t</div>\n" +
-                        "\t\t\t<div class=\"flex-item\">\n" +
-                        "\t\t\t\t<p class=\"driver-car-details bold\">Jin Sam</p>\n" +
-                        "\t\t\t\t<p class=\"driver-car-details\">Open Serve Installer</p>\n" +
-                        "\t\t\t\t<button class=\"call-button\" >Call</button>\n" +
-                        "\t\t\t</div>\n" +
-                        "\t\t</div>";
-
-                    $('#tracking-details').html(html);
-                }
-            }
-            else
-            {
-                var notAllowedError = "<img src=\"file-not-found.jpg\" class=\"error-not-found\">";
-                $('#tracking').html(notAllowedError);
-            }
-
-
-        });
-
-
-        function getInstallerLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                $('#demo').text("Geolocation is not supported by this browser.");
-            }
-        }
-
-
-        function showPosition(position) {
-            $('#demo').append('<div>' + "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude+ '</div>');
-
-            var request = {
-                origin: new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
-                //destination: new google.maps.LatLng(-25.9683253,28.1259053),
-                //destination: new google.maps.LatLng(-25.9728385, 28.1264963),
-               	// destination: '6th Rd,Midridge Park, Midrand',
-                destination: 'Vodacom Midrand office staff entrance',
-                travelMode: google.maps.DirectionsTravelMode.DRIVING
-            };
-
-
-
-
-
-            var installerImage = new google.maps.MarkerImage('/installer.png',
-                // This marker is 129 pixels wide by 42 pixels tall.
-                new google.maps.Size(100, 100),
-                // The origin for this image is 0,0.
-                new google.maps.Point(0,0),
-                // The anchor for this image is the base of the flagpole at 18,42.
-                new google.maps.Point(18, 42)
-            );
-
-            var customerImage = new google.maps.MarkerImage('/pin2.png',
-                // This marker is 129 pixels wide by 42 pixels tall.
-                new google.maps.Size(60, 60),
-                // The origin for this image is 0,0.
-                new google.maps.Point(0,0),
-                // The anchor for this image is the base of the flagpole at 18,42.
-                new google.maps.Point(23, 10)
-            );
-
-            //https://github.com/terikon/marker-animate-unobtrusive#SlidingMarker.getEasing
-
-            var address = request.destination;
-
-            geocoder.geocode( { 'address': address}, function(results, status) {
-                //map.fitBounds(results[0].geometry.viewport);
-                if (status == google.maps.GeocoderStatus.OK) {
-                    var latitude = results[0].geometry.location.lat();
-                    var longitude = results[0].geometry.location.lng();
-                    var geocodedAddress = new google.maps.LatLng(latitude, longitude);
-                    createMarker(geocodedAddress, customerImage);
-
-
-                    var marker = new google.maps.Marker({
-                        position: request.origin,
-                        map: map,
-                        duration: 10000,
-                        zIndex: 9999999,
-                        easing: "linear",
-                        icon: installerImage
-                    });
-
-                    marker.setMap(map);
-
-                }
-            });
-
-            //createMarker(request.origin, installerImage);
-            //createMarker(request.destination, customerImage);
-
-
-			// Getting o work with the provided route
-            directionsService.route(request, function(response, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
-                    var point = response.routes[0].legs[0];
-                    $('.time').html(point.duration.text)
-                   // console.log('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')');
-                    directionsDisplay.setDirections(response);
-                }
-            });
-
-        }
-
-
-
-        function createMarker(latlng, imageName) {
-
-            var marker = new google.maps.Marker({
-                position: latlng,
-                map: map,
-                icon: imageName,
-            });
-
-
-        }
-
-        // listener, whenever the server emits 'updatechat', this updates the chat body
-        socket.on('updatechat', function (username, data) {
-            $('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
-        });
-
-        // listener, whenever the server emits 'updaterooms', this updates the room the client is in
-        socket.on('updaterooms', function(rooms, current_room) {
-            $('#rooms').empty();
-            $.each(rooms, function(key, value) {
-                if(value == current_room){
-                    $('#rooms').append('<div>' + value + '</div>');
-                }
-                else {
-                    $('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
-                }
-            });
-        });
-
-
-
-        function getQueryVariable(variable)
-        {
-            var query = window.location.search.substring(1);
-            var vars = query.split("&");
-            for (var i=0;i<vars.length;i++) {
-                var pair = vars[i].split("=");
-                if(pair[0] == variable){return pair[1];}
-            }
-            return(false);
-        }
-
-        //
-        //
-        // function switchRoom(room){
-        //     socket.emit('switchRoom', room);
-        // }
-
-		// when the client clicks SEND
-		$('#datasend').click( function() {
-			var message = $('#data').val();
-			$('#data').val('');
-			// tell server to execute 'sendchat' and send along one parameter
-			socket.emit('sendchat', message);
-		});
-
-		// when the client hits ENTER on their keyboard
-		$('#data').keypress(function(e) {
-			if(e.which == 13) {
-				$(this).blur();
-				$('#datasend').focus().click();
-			}
-		});
-	});
-
-</script>
-
+</head>
 <body>
 
-<div class="container">
-	<div id="tracking">
-		<div id="map-canvas"></div>
-		<div id="eta-info">
-			<span class="time">--:--</span>
+
+<section class="top-floating-panel ">
+	<div class="container">
+		<div class="row installer-heading-container">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<h4>En Route</h4>
+			</div>
 		</div>
-		<div id="tracking-details"></div>
+		<div class="row">
+			<div class="col-md-9 col-sm-9 col-xs-9 address-block">
+				23 Brompton Road, Randburg, South Africa
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-3 navigation-block">
+				<i class="fa fa-location-arrow"></i>
+				<p class="nav-label">navigate</p>
+			</div>
+
+		</div>
 	</div>
-</div>
-<!--<div style="width: 100%;">-->
-	<!--<div id="map" style="width: 600px; height: 400px; float: left;"></div>-->
-	<!--&lt;!&ndash;<div id="panel" style="width: 300px; float: right;"></div>&ndash;&gt;-->
-<!--</div>-->
-
-<!--<div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">-->
-	<!--<b>ROOMS</b>-->
-	<!--<div id="rooms"></div>-->
-<!--</div>-->
-<!--<div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">-->
-	<!--<div id="conversation"></div>-->
-	<!--<input id="data" style="width:200px;" />-->
-	<!--<input type="button" id="datasend" value="send" />-->
+</section>
 
 
-	<!--<p id="demo">Show the results here</p>-->
-<!--</div>-->
+<section class="bottom-floating-panel" id="bottom-bar">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-4">
+				<img src="profile_icon.png">
+			</div>
+			<div class="col-md-8 col-sm-8 col-xs-8">
+				<p class="name">Samantha Berry</p>
+				<p class="company">OpenServe Installer</p>
+				<p class="status">status: en-route</p>
+			</div>
+		</div>
 
+		<div class="row border-row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<p class="extra-info">ORDER NUMBER: SO180406-124567</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-4 centered">
+				<i class="fa fa-phone"></i>
+				<p class="actions">Call Installer</p>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-4 centered">
+				<i class="fa fa-comment"></i>
+				<p class="actions">Text Installer</p>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-4 centered">
+				<i class="fa fa-share-alt"></i>
+				<p class="actions">Share Location</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<div id="map"></div>
+<script>
+
+    var map;
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat:-25.9683253, lng: 28.1259053},
+        zoom: 15,
+        mapTypeControl: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        fullscreenControl: false,
+        scaleControl: false,
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_CENTER
+        },
+        scaleControl: false,
+    });
+
+    $("#bottom-bar").toggle(function(){
+            $(this).animate(
+                {
+                    height: "30%",
+                    width: "100%",
+                    left: '0%'
+                },600);
+        },
+        function(){
+            $(this).animate(
+                {
+                    height: "15%",
+                    width: "94%",
+                    left: '3%'
+                },600);
+        });
+
+</script>
 
 
 </body>
