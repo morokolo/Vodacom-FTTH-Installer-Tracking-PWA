@@ -258,3 +258,24 @@ p.extra-info {
 	font-weight: 600;
 	padding: 5px;
 }
+
+
+section.error {
+	background: #e60000;
+	height: 100%;
+	color: #fff;
+}
+
+.error-text {
+	font-weight: 300;
+	font-size: 20px;
+	padding-top: 50%;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.error-image {
+	width: 50%;
+	height: 50%;
+	margin-top: 20%;
+}
