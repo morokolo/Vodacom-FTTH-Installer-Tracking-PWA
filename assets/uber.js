@@ -166,7 +166,7 @@ $(function(){
     $("#bottom-bar").toggle(function(){
             $(this).animate(
                 {
-                    height: "30%",
+                    height: "35%",
                     width: "100%",
                     left: '0%'
                 },600);
