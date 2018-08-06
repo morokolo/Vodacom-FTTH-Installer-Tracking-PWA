@@ -182,7 +182,8 @@ button:focus {
 	background-color: #fff;
 	border: 1px solid #bbbbbb;
 	position: absolute;
-	z-index: 9999999;
+	top: 0;
+	z-index: 9999999999999999999999999999;
 }
 
 .customer-nav-panel {
