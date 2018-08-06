@@ -76,6 +76,12 @@ io.sockets.on('connection', function (socket) {
 	});
 
 
+    socket.on('updateInstallerlocation', function (data) {
+        io.sockets.adapter.rooms[data.salesOrderNumber].lat = data.InstallerLocation.latitude;
+        io.sockets.adapter.rooms[data.salesOrderNumber].lng = data.InstallerLocation.longitude;
+    });
+
+
 	
 
 	// when the user disconnects.. perform this

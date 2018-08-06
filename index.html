@@ -127,6 +127,7 @@
     var username = getQueryVariable("username");
     var salesOrderNumber = getQueryVariable("salesordernumber");
     var typeOfUser = getQueryVariable("type");
+    var socket = io.connect('http://localhost:8080');
 
 
     mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb2tvbG8iLCJhIjoiY2prZHNwa2I5MWxmdjNscG44eTlzaHZteiJ9.xl-oYhHw0aC1imwHR1Hk3A';
@@ -184,7 +185,6 @@
     function setInstallerStartingLocation(postion) {
         console.log('Setting Installer Location Here');
         InstallerLocation = [postion.coords.longitude, postion.coords.latitude];
-
         setDrivingRouteAndShowProgress(InstallerLocation, CustomersAddress);
     }
 
@@ -247,14 +247,14 @@
             if (map.getSource("start")) {
                 map.removeSource("start");
             }
-
-            if (map.getLayer("car")) {
-                map.removeLayer("car");
-            }
-
-            if (map.getSource("car")) {
-                map.removeSource("car");
-            }
+            //
+            // if (map.getLayer("car")) {
+            //     map.removeLayer("car");
+            // }
+            //
+            // if (map.getSource("car")) {
+            //     map.removeSource("car");
+            // }
 
 
 
@@ -275,37 +275,53 @@
                 }
             });
 
-            map.loadImage('/installer-car.png', function(error, image) {
-                if (error) throw error;
-                map.addImage('car', image);
-                map.addLayer({
-                    "id": "start",
-                    "type": "symbol",
-                    "source": {
-                        "type": "geojson",
-                        "data": {
-                            "type": "FeatureCollection",
-                            "features": [{
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": start
-                                }
-                            }]
+            map.addLayer({
+                id: 'start',
+                type: 'circle',
+                source: {
+                    type: 'geojson',
+                    data: {
+                        type: 'Feature',
+                        geometry: {
+                            type: 'Point',
+                            coordinates: start
                         }
-                    },
-                    "layout": {
-                        "icon-image": "car",
-                        "icon-size": 0.06
                     }
-                });
+                }
             });
+
+            //
+            // map.loadImage('/installer-car.png', function(error, image) {
+            //     if (error) throw error;
+            //     map.addImage('car', image);
+            //     map.addLayer({
+            //         "id": "start",
+            //         "type": "symbol",
+            //         "source": {
+            //             "type": "geojson",
+            //             "data": {
+            //                 "type": "FeatureCollection",
+            //                 "features": [{
+            //                     "type": "Feature",
+            //                     "geometry": {
+            //                         "type": "Point",
+            //                         "coordinates": start
+            //                     }
+            //                 }]
+            //             }
+            //         },
+            //         "layout": {
+            //             "icon-image": "car",
+            //             "icon-size": 0.06
+            //         }
+            //     });
+            // });
 
         });
     }
 
 
-    var socket = io.connect('http://localhost:8080');
+
     socket.on('connect', function(){
         // call the server-side function 'adduser' and send one parameter (value of prompt)
 
@@ -332,6 +348,8 @@
 
 
     });
+
+
 
     $("#bottom-bar").toggle(function(){
             $(this).animate(
