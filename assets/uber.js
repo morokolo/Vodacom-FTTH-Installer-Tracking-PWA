@@ -58,6 +58,7 @@ $(function(){
                 position: google.maps.ControlPosition.RIGHT_CENTER
             }
         });
+        map.setCenter(new google.maps.LatLng(-23.9116035, 29.3808944));
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(displayAndWatchLocation, locationError, {

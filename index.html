@@ -144,21 +144,30 @@
         setCustomerAddressLocation();
         setInterval(function(){
             getInstallerLocation();
-            console.log('updated ... ');
             //send the updated location of the installer and redraw the pin
-        }, 15000); //15 second refresh
+        }, 20000); //15 second refresh
 
     });
 
 
     function getInstallerLocation() {
-        console.log('getting Installer Location Here');
+        console.log('getting Installer Location Here' + new Date());
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(displayAndWatchLocation);
+            navigator.geolocation.getCurrentPosition(displayAndWatchLocation, locationError, {
+                enableHighAccuracy : true,
+                timeout : Infinity,
+                maximumAge : 0
+            });
         }else {
             alert('unable to get the location error goes here');
 		}
     }
+
+    function locationError(error) {
+        // the current position could not be located
+        alert("The current position could not be found!");
+    }
+
 
     function displayAndWatchLocation(position) {
         console.log('location Recieved');
@@ -169,14 +178,12 @@
     function watchCurrentPosition() {
         var positionTimer = navigator.geolocation.watchPosition(function(position) {
             console.log('watching...', position.coords);
-            (position);
         });
     }
 
     function setInstallerStartingLocation(postion) {
         console.log('Setting Installer Location Here');
         InstallerLocation = [postion.coords.longitude, postion.coords.latitude];
-        $('.address-block').html(postion.coords.longitude + " ----"+ postion.coords.latitude);
 
         setDrivingRouteAndShowProgress(InstallerLocation, CustomersAddress);
     }
@@ -224,9 +231,35 @@
         }).done(function(data){
 
 
+
+            if (map.getLayer("route")) {
+                map.removeLayer("route");
+            }
+
+            if (map.getSource("route")) {
+                map.removeSource("route");
+            }
+
+            if (map.getLayer("start")) {
+                map.removeLayer("start");
+            }
+
+            if (map.getSource("start")) {
+                map.removeSource("start");
+            }
+
+            if (map.getLayer("car")) {
+                map.removeLayer("car");
+            }
+
+            if (map.getSource("car")) {
+                map.removeSource("car");
+            }
+
+
+
+
             var route = data.routes[0].geometry;
-
-
             map.addLayer({
                 id: 'route',
                 type: 'line',
@@ -244,7 +277,7 @@
 
             map.loadImage('/installer-car.png', function(error, image) {
                 if (error) throw error;
-                map.addImage('cat', image);
+                map.addImage('car', image);
                 map.addLayer({
                     "id": "start",
                     "type": "symbol",
@@ -262,7 +295,7 @@
                         }
                     },
                     "layout": {
-                        "icon-image": "cat",
+                        "icon-image": "car",
                         "icon-size": 0.06
                     }
                 });
