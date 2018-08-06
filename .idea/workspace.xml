@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf097599-c41c-4d54-9450-07ffc924ad50" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,8 +20,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="-478">
+              <caret line="36" column="73" lean-forward="true" selection-start-line="36" selection-start-column="73" selection-end-line="36" selection-end-column="73" />
             </state>
           </provider>
         </entry>
@@ -31,8 +29,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="108" column="41" selection-start-line="108" selection-start-column="41" selection-end-line="108" selection-end-column="41" />
+            <state relative-caret-position="239">
+              <caret line="178" column="94" selection-start-line="178" selection-start-column="94" selection-end-line="178" selection-end-column="94" />
             </state>
           </provider>
         </entry>
@@ -49,22 +47,26 @@
       <file leaf-file-name="uber.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/uber.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2340">
-              <caret line="156" column="5" lean-forward="true" selection-start-line="121" selection-start-column="3" selection-end-line="156" selection-end-column="5" />
+            <state relative-caret-position="2379">
+              <caret line="198" column="7" lean-forward="true" selection-start-line="176" selection-start-column="4" selection-end-line="198" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index-workingBackup.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index-workingBackup.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="87">
+              <caret line="91" column="7" lean-forward="true" selection-start-line="91" selection-start-column="7" selection-end-line="95" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index-v1.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index-v1.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="index-workingBackup.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index-workingBackup.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2745">
-              <caret line="183" column="77" selection-start-line="183" selection-start-column="54" selection-end-line="183" selection-end-column="77" />
+            <state relative-caret-position="250">
+              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="127" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -96,6 +98,7 @@
       <find>CUSTOM</find>
       <find>watchCurrentPosition</find>
       <find>insertAdjacentHTML</find>
+      <find>InstallerLocation</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -105,11 +108,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/style.css" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/assets/style.css" />
         <option value="$PROJECT_DIR$/assets/uber.js" />
         <option value="$PROJECT_DIR$/index-route-with-animationv12.html" />
+        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
@@ -145,11 +148,6 @@
             <path>
               <item name="psitsmike_example_2" type="b2602c69:ProjectViewProjectNode" />
               <item name="psitsmike_example_2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="psitsmike_example_2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="psitsmike_example_2" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -213,25 +211,25 @@
       <workItem from="1533210261923" duration="94000" />
       <workItem from="1533210824886" duration="4907000" />
       <workItem from="1533274070164" duration="9796000" />
-      <workItem from="1533450584156" duration="723000" />
+      <workItem from="1533450584156" duration="9032000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79664000" />
+    <option name="totallyTimeSpent" value="87973000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="845" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19652778" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19652778" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.33463034" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.33463034" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -535,34 +533,10 @@
     <entry file="file://$PROJECT_DIR$/assets/slick.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2880">
           <caret line="192" column="12" selection-start-line="192" selection-start-column="12" selection-end-line="192" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index-v1.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/uber.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2340">
-          <caret line="156" column="5" lean-forward="true" selection-start-line="121" selection-start-column="3" selection-end-line="156" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index-workingBackup.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2745">
-          <caret line="183" column="77" selection-start-line="183" selection-start-column="54" selection-end-line="183" selection-end-column="77" />
         </state>
       </provider>
     </entry>
@@ -573,10 +547,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/uber.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2379">
+          <caret line="198" column="7" lean-forward="true" selection-start-line="176" selection-start-column="4" selection-end-line="198" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-478">
+          <caret line="36" column="73" lean-forward="true" selection-start-line="36" selection-start-column="73" selection-end-line="36" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index-v1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="127" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index-workingBackup.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="91" column="7" lean-forward="true" selection-start-line="91" selection-start-column="7" selection-end-line="95" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="108" column="41" selection-start-line="108" selection-start-column="41" selection-end-line="108" selection-end-column="41" />
+        <state relative-caret-position="239">
+          <caret line="178" column="94" selection-start-line="178" selection-start-column="94" selection-end-line="178" selection-end-column="94" />
         </state>
       </provider>
     </entry>

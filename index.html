@@ -8,7 +8,18 @@
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 	<link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
-
+	<link rel="shortcut icon" type="image/icon" href="favicon.ico"/>
+	<!-- Font Awesome -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link href="bootstrap.min.css" rel="stylesheet">
+	<!-- Main Style -->
+	<link href="style.css" rel="stylesheet">
+	<!-- Open Sans for body font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
+	<!-- Montserrat for title -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<script src="/socket.io/socket.io.js"></script>
 	<style>
 		body {
 			margin: 0;
@@ -24,8 +35,99 @@
 	</style>
 </head>
 <body>
-<div id='map'></div>
+
+<section class="customer-nav-panel" style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<img src="vodacom_logo.png">
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="top-floating-panel" style="display: none;">
+	<div class="container">
+		<div class="row installer-heading-container">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<h4>En Route</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9 col-sm-9 col-xs-9 address-block">
+				Vodacom Midrand office staff entrance
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-3 navigation-block" id="navigateToAddress">
+				<i class="fa fa-location-arrow"></i>
+				<p class="nav-label">navigate</p>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<div id="eta-info">
+	<span class="time">--:--</span>
+</div>
+
+<section class="bottom-floating-panel" id="bottom-bar">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-4">
+				<img src="profile_icon.png">
+			</div>
+			<div class="col-md-8 col-sm-8 col-xs-8">
+				<p class="name">Samantha Berry</p>
+				<p class="company">OpenServe Installer</p>
+				<p class="status">status: en-route</p>
+			</div>
+		</div>
+
+		<div class="row border-row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<p class="extra-info">ORDER NUMBER: SO180406-124567</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-4 centered">
+				<i class="fa fa-phone"></i>
+				<p class="actions">Call Installer</p>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-4 centered">
+				<i class="fa fa-comment"></i>
+				<p class="actions">Text Installer</p>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-4 centered">
+				<i class="fa fa-share-alt"></i>
+				<p class="actions">Share Location</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<div id="map"></div>
+
+
+<section class="error" style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12 centered">
+				<p class="error-text">Oops!!! The page that you are looking for is not available.</p>
+				<img src="no-car.png" class="error-image">
+			</div>
+		</div>
+	</div>
+</section>
 <script>
+
+    var CustomersAddress = [];
+    var InstallerLocation = [];
+    var username = getQueryVariable("username");
+    var salesOrderNumber = getQueryVariable("salesordernumber");
+    var typeOfUser = getQueryVariable("type");
+
 
     mapboxgl.accessToken = 'pk.eyJ1IjoibW9yb2tvbG8iLCJhIjoiY2prZHNwa2I5MWxmdjNscG44eTlzaHZteiJ9.xl-oYhHw0aC1imwHR1Hk3A';
     var map = new mapboxgl.Map({
@@ -39,23 +141,92 @@
     map.addControl(new mapboxgl.NavigationControl());
 
     map.on('load', function(){
-        getRoute();
+        setCustomerAddressLocation();
+        setInterval(function(){
+            getInstallerLocation();
+            console.log('updated ... ');
+            //send the updated location of the installer and redraw the pin
+        }, 15000); //15 second refresh
+
     });
 
-    function getRoute() {
 
-        map.flyTo({
-			center: [28.1259053, -25.9683253]
+    function getInstallerLocation() {
+        console.log('getting Installer Location Here');
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(displayAndWatchLocation);
+        }else {
+            alert('unable to get the location error goes here');
+		}
+    }
+
+    function displayAndWatchLocation(position) {
+        console.log('location Recieved');
+        setInstallerStartingLocation(position);
+        watchCurrentPosition();
+    }
+
+    function watchCurrentPosition() {
+        var positionTimer = navigator.geolocation.watchPosition(function(position) {
+            console.log('watching...', position.coords);
+            (position);
         });
-        var start = [28.1259053, -25.9683253];
-        var end = [28.1443323, -26.043496];
+    }
+
+    function setInstallerStartingLocation(postion) {
+        console.log('Setting Installer Location Here');
+        InstallerLocation = [postion.coords.longitude, postion.coords.latitude];
+        $('.address-block').html(postion.coords.longitude + " ----"+ postion.coords.latitude);
+
+        setDrivingRouteAndShowProgress(InstallerLocation, CustomersAddress);
+    }
+
+    function setCustomerAddressLocation(postion) {
+        console.log('Setting Customer Address Here');
+        CustomersAddress = [28.1443323, -26.043496];
+        map.flyTo({
+            center: CustomersAddress
+        });
+        map.addLayer({
+            id: 'end',
+            type: 'circle',
+            source: {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: CustomersAddress
+                    }
+                }
+            }
+        });
+
+    }
+
+    function getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+
+    function setDrivingRouteAndShowProgress(start, end) {
+
         var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
         $.ajax({
             method: 'GET',
             url: directionsRequest,
         }).done(function(data){
 
+
             var route = data.routes[0].geometry;
+
+
             map.addLayer({
                 id: 'route',
                 type: 'line',
@@ -70,20 +241,6 @@
                     'line-width': 2
                 }
             });
-            // map.addLayer({
-            //     id: 'start',
-            //     type: 'circle',
-            //     source: {
-            //         type: 'geojson',
-            //         data: {
-            //             type: 'Feature',
-            //             geometry: {
-            //                 type: 'Point',
-            //                 coordinates: start
-            //             }
-            //         }
-            //     }
-            // });
 
             map.loadImage('/installer-car.png', function(error, image) {
                 if (error) throw error;
@@ -111,32 +268,61 @@
                 });
             });
 
-
-            map.addLayer({
-                id: 'end',
-                type: 'circle',
-                source: {
-                    type: 'geojson',
-                    data: {
-                        type: 'Feature',
-                        geometry: {
-                            type: 'Point',
-                            coordinates: end
-                        }
-                    }
-                }
-            });
-
-
-            var instructions = document.getElementById('instructions');
-            // var steps = data.routes[0].legs[0].steps;
-            // steps.forEach(function(step){
-            //     instructions.insertAdjacentHTML('beforeend', '<p>' + step.maneuver.instruction + '</p>');
-            // });
         });
     }
 
 
+    var socket = io.connect('http://localhost:8080');
+    socket.on('connect', function(){
+        // call the server-side function 'adduser' and send one parameter (value of prompt)
+
+        if(username !="" && salesOrderNumber != "" || typeOfUser != ""){
+            socket.emit('adduser', {username, salesOrderNumber, typeOfUser});
+            if(typeOfUser == "installer")
+            {
+				console.log('installer....');
+                $('.top-floating-panel').show();
+            }
+            else
+            {
+                console.log('customer....');
+                $('.customer-nav-panel').show();
+            }
+        }
+        else
+        {
+            $('.error').show();
+            $('.customer-nav-panel').show();
+            $('#map').hide();
+            $('#bottom-bar').hide();
+        }
+
+
+    });
+
+    $("#bottom-bar").toggle(function(){
+            $(this).animate(
+                {
+                    height: "35%",
+                    width: "100%",
+                    left: '0%'
+                },600);
+        },
+        function(){
+            $(this).animate(
+                {
+                    height: "15%",
+                    width: "94%",
+                    left: '3%'
+                },600);
+        });
+
+
+
+    $('#navigateToAddress').click(function(e){
+        e.preventDefault();
+        window.location = "https://maps.google.com/maps?q=Vodacom Midrand office staff entrance";
+    });
 </script>
 </body>
 </html>
