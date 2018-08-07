@@ -20,6 +20,9 @@
 	<!-- Montserrat for title -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<script src="/socket.io/socket.io.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+
 	<style>
 		body {
 			margin: 0;
@@ -121,6 +124,19 @@
 	</div>
 </section>
 <script>
+    var config = {
+        apiKey: "AIzaSyBqox5fCUf8-Ja3K7_Wjf7Q9bgIGGePSvw",
+        authDomain: "ftthtracking.firebaseapp.com",
+        databaseURL: "https://ftthtracking.firebaseio.com",
+        projectId: "ftthtracking",
+        storageBucket: "",
+        messagingSenderId: "617960451441"
+    };
+
+
+    var defaultApp = firebase.initializeApp(config);
+    var defaultDatabase = defaultApp.database();
+
 
     var CustomersAddress = [];
     var InstallerLocation = [];
@@ -134,7 +150,7 @@
     var map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/light-v9', //stylesheet location
-        center: [29.3808944,-23.9116035], // starting position
+        center: [28,-20], // starting position
         zoom: 12 // starting zoom
     });
 
@@ -146,7 +162,7 @@
         setInterval(function(){
             getInstallerLocation();
             //send the updated location of the installer and redraw the pin
-        }, 20000); //15 second refresh
+        }, 10000); //15 second refresh
 
     });
 
@@ -184,8 +200,28 @@
 
     function setInstallerStartingLocation(postion) {
         console.log('Setting Installer Location Here');
-        InstallerLocation = [postion.coords.longitude, postion.coords.latitude];
-        setDrivingRouteAndShowProgress(InstallerLocation, CustomersAddress);
+        if(typeOfUser =='installer'){
+            firebase.database().ref('/tracking/' + salesOrderNumber).set({
+                // "longitude" : postion.coords.longitude,
+                // "latitude" : postion.coords.latitude
+                "longitude" : postion.coords.longitude,
+                "latitude" : postion.coords.latitude
+            });
+            InstallerLocation = [postion.coords.longitude, postion.coords.latitude];
+            setDrivingRouteAndShowProgress(InstallerLocation, CustomersAddress);
+
+        }else {
+            //get the real time location from upstreama
+            var whereIsTheinstaller = firebase.database().ref('tracking/' + salesOrderNumber);
+
+            whereIsTheinstaller.on('value', function(coords) {
+                InstallerLocation = [ coords.val().longitude, coords.val().latitude];
+                setDrivingRouteAndShowProgress(InstallerLocation, CustomersAddress);
+            });
+
+		}
+
+
     }
 
     function setCustomerAddressLocation(postion) {
@@ -375,5 +411,6 @@
         window.location = "https://maps.google.com/maps?q=Vodacom Midrand office staff entrance";
     });
 </script>
+
 </body>
 </html>

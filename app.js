@@ -5,6 +5,23 @@ var express = require('express')
   , io = require('socket.io').listen(server);
 
 //server.listen(8080);
+var firebase = require("firebase");
+
+
+
+// firebase.database().ref('/tracking/' + 'SO12').set({
+//     "longitude" : "-1",
+//     "latitude" : "10"
+// });
+
+// firebase.database().ref('/tracking/' + 'SO12').set({
+//     "longitude" : "-1",
+//     "latitude" : "10"
+// });
+
+// var liost = defaultDatabase.list('/tracking/SO12');
+//
+// console.log('list here', liost.valueChange());
 
 
 server.listen(process.env.PORT || 8080, function(){
