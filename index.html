@@ -1,138 +1,127 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset='utf-8' />
-	<title></title>
-	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
-	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
-	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-	<link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
-	<link rel="shortcut icon" type="image/icon" href="favicon.ico"/>
-	<!-- Font Awesome -->
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-	<!-- Bootstrap -->
-	<link href="bootstrap.min.css" rel="stylesheet">
-	<!-- Main Style -->
-	<link href="style.css" rel="stylesheet">
-	<!-- Open Sans for body font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
-	<!-- Montserrat for title -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-	<script src="/socket.io/socket.io.js"></script>
+    <meta charset='utf-8'/>
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet'/>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet'/>
+    <link rel="shortcut icon" type="image/icon" href="favicon.ico"/>
+    <!-- Font Awesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Main Style -->
+    <link href="style.css" rel="stylesheet">
+    <!-- Open Sans for body font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
+    <!-- Montserrat for title -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
 
-	<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
-
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-		}
-
-		#map {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			width: 100%;
-		}
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
 
 
-	</style>
 </head>
 <body>
 
 <section class="tracking_page animate_content">
 
-	<section class="customer-nav-panel" style="display: none;">
-	<div class="container">
-	<div class="row">
-	<div class="col-md-12 col-sm-12 col-xs-12">
-	<img src="vodacom_logo.png">
-	</div>
-	</div>
-	</div>
-	</section>
+    <section class="customer-nav-panel" style="display: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <img src="vodacom_logo.png">
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<section class="top-floating-panel" style="display: none;">
-	<div class="container">
-	<div class="row installer-heading-container">
-	<div class="col-md-12 col-sm-12 col-xs-12">
-	<h4>En Route</h4>
-	</div>
-	</div>
-	<div class="row">
-	<div class="col-md-9 col-sm-9 col-xs-9 address-block">
-	Vodacom Midrand office staff entrance
-	</div>
-	<div class="col-md-3 col-sm-3 col-xs-3 navigation-block" id="navigateToAddress">
-	<i class="fa fa-location-arrow"></i>
-	<p class="nav-label">navigate</p>
-	</div>
+    <section class="top-floating-panel" style="display: none;">
+        <div class="container">
+            <div class="row installer-heading-container">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h4>En Route</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9 col-sm-9 col-xs-9 address-block">
+                    Vodacom Midrand office staff entrance
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3 navigation-block" id="navigateToAddress">
+                    <i class="fa fa-location-arrow"></i>
+                    <p class="nav-label">navigate</p>
+                </div>
 
-	</div>
-	</div>
-	</section>
+            </div>
+        </div>
+    </section>
 
-	<!--<div id="eta-info">-->
-	<!--<span class="time">&#45;&#45;:&#45;&#45;</span>-->
-	<!--</div>-->
+    <!--<div id="eta-info">-->
+    <!--<span class="time">&#45;&#45;:&#45;&#45;</span>-->
+    <!--</div>-->
 
-	<!--id="bottom-bar"-->
-	<section class="bottom-floating-panel" id="bottom-bar" >
-	<div class="container">
-	<div class="row">
-	<div class="col-md-4 col-sm-4 col-xs-4">
-	<img src="profile_icon.png">
-	</div>
-	<div class="col-md-8 col-sm-8 col-xs-8">
-	<p class="name">Samantha Berry</p>
-	<p class="company">OpenServe Installer</p>
-	<p class="status">status: en-route</p>
-	</div>
-	</div>
+    <!--id="bottom-bar"-->
+    <section class="bottom-floating-panel">
+        <div class="container bottom-header">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <img src="profile_icon.png">
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-8">
+                    <p class="name">Samantha Berry</p>
+                    <p class="company">OpenServe Installer</p>
+                    <p class="status">status: en-route</p>
+                </div>
+            </div>
 
-	<div class="row border-row">
-	<div class="col-md-12 col-sm-12 col-xs-12">
-	<p class="extra-info">ORDER NUMBER: SO180406-124567</p>
-	</div>
-	</div>
-
-	<div class="row">
-	<div class="col-md-4 col-sm-4 col-xs-4 centered">
-	<i class="fa fa-phone"></i>
-	<p class="actions">Call Installer</p>
-	</div>
-	<div class="col-md-4 col-sm-4 col-xs-4 centered">
-	<i class="fa fa-comment"></i>
-	<p class="actions">Text Installer</p>
-	</div>
-	<div class="col-md-4 col-sm-4 col-xs-4 centered">
-	<i class="fa fa-share-alt"></i>
-	<p class="actions">Share Location</p>
-	</div>
-	</div>
-	</div>
-	</section>
+            <div class="row border-row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p class="extra-info">ORDER NUMBER: SO180406-124567</p>
+                </div>
+            </div>
 
 
-	<div id="map"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4 centered call-action">
+                    <i class="fa fa-phone"></i>
+                    <p class="actions">Call Installer</p>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 centered text-action">
+                    <i class="fa fa-comment"></i>
+                    <p class="actions">Text Installer</p>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 centered share-action">
+                    <i class="fa fa-share-alt"></i>
+                    <p class="actions">Share Location</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
-	<section class="error" style="display: none;">
-	<div class="container">
-	<div class="row">
-	<div class="col-md-12 col-sm-12 col-xs-12 centered">
-	<p class="error-text">Oops!!! The page that you are looking for is not available.</p>
-	<img src="no-car.png" class="error-image">
-	</div>
-	</div>
-	</div>
-	</section>
+    <div id="map"></div>
+
+
+    <section class="error" style="display: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 centered">
+                    <p class="error-text">Oops!!! The page that you are looking for is not available.</p>
+                    <img src="no-car.png" class="error-image">
+                </div>
+            </div>
+        </div>
+    </section>
 
 </section>
 
 <!--<section id="installer_loader" style="display: none;">-->
-	<!--<p class="loading-message">Finding your installer ...</p>-->
+<!--<p class="loading-message">Finding your installer ...</p>-->
 <!--</section>-->
 
 <script src="/tracking.js"></script>
