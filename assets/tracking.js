@@ -290,13 +290,12 @@ $(function(){
     // });
 
     $(".call-action").click(function (e) {
-        alert('calling');
-        e.preventDefault();
+        $("#callModal").modal()
     });
 
     $(".text-action").click(function (e) {
         //e.preventDefault();
-        alert('texting');
+        $("#chatModal").modal()
     });
 
     $(".share-action").click(function (e) {

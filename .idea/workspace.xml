@@ -27,15 +27,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="67" column="30" lean-forward="true" selection-start-line="67" selection-start-column="30" selection-end-line="67" selection-end-column="43" />
+            <state relative-caret-position="210">
+              <caret line="14" column="52" lean-forward="true" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
               <folding>
                 <element signature="n#style#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#section#1;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#section#3;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#4779#4786#1" expanded="true" />
+                <element signature="e#5430#5437#1" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -44,17 +46,17 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="233" column="4" selection-start-line="233" selection-start-column="4" selection-end-line="233" selection-end-column="15" />
+            <state relative-caret-position="251">
+              <caret line="239" column="14" selection-start-line="239" selection-start-column="14" selection-end-line="239" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tracking.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tracking.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/tracking.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="323" column="14" lean-forward="true" selection-start-line="307" selection-start-column="3" selection-end-line="323" selection-end-column="14" />
+            <state relative-caret-position="36">
+              <caret line="292" column="16" selection-start-line="292" selection-start-column="16" selection-end-line="292" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -108,8 +110,8 @@
       <find>customer-nav-panel</find>
       <find>cont</find>
       <find>.bottom-floating-panel</find>
-      <find>bottom-floating-panel</find>
       <find>bottom-bar</find>
+      <find>bottom-floating-panel</find>
       <find>map</find>
     </findStrings>
   </component>
@@ -125,9 +127,9 @@
         <option value="$PROJECT_DIR$/assets/uber.js" />
         <option value="$PROJECT_DIR$/tracking.json" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/assets/tracking.js" />
         <option value="$PROJECT_DIR$/assets/style.css" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/assets/tracking.js" />
       </list>
     </option>
   </component>
@@ -235,12 +237,12 @@
       <workItem from="1533630730071" duration="128000" />
       <workItem from="1533634262649" duration="4275000" />
       <workItem from="1533705583239" duration="599000" />
-      <workItem from="1533723051676" duration="7527000" />
+      <workItem from="1533723051676" duration="8101000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105617000" />
+    <option name="totallyTimeSpent" value="106191000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="845" extended-state="0" />
@@ -299,6 +301,8 @@
             <element signature="n#style#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#section#1;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#section#3;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#4779#4786#1" expanded="true" />
+            <element signature="e#5430#5437#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -345,29 +349,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/tracking.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="292" column="16" selection-start-line="292" selection-start-column="16" selection-end-line="292" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/bootstrap.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="239" column="14" selection-start-line="239" selection-start-column="14" selection-end-line="239" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="67" column="30" lean-forward="true" selection-start-line="67" selection-start-column="30" selection-end-line="67" selection-end-column="43" />
+        <state relative-caret-position="210">
+          <caret line="14" column="52" lean-forward="true" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
           <folding>
             <element signature="n#style#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#section#1;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#section#3;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#4779#4786#1" expanded="true" />
+            <element signature="e#5430#5437#1" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="233" column="4" selection-start-line="233" selection-start-column="4" selection-end-line="233" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/tracking.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="323" column="14" lean-forward="true" selection-start-line="307" selection-start-column="3" selection-end-line="323" selection-end-column="14" />
         </state>
       </provider>
     </entry>

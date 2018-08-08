@@ -236,6 +236,10 @@ button:focus {
 	z-index: 9999999;
 }
 
+#callModal, #chatModal {
+	z-index: 1;
+}
+
 #map {
 	position: absolute;
 	top: 0;
