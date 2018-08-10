@@ -12,7 +12,7 @@
     <!-- Font Awesome -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <!-- Bootstrap -->
-    <link href="bootstrap.min.css" rel="stylesheet">
+
     <!-- Main Style -->
     <link href="style.css" rel="stylesheet">
     <!-- Open Sans for body font -->
@@ -23,11 +23,11 @@
 
     <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
 
-
+    <link href="bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="animate_content">
 
-<section class="tracking_page animate_content">
+<section class="tracking_page ">
 
     <section class="customer-nav-panel" style="display: none;">
         <div class="container">
@@ -121,37 +121,87 @@
 </section>
 
 
-<div class="modal fade" id="chatModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Chat Header</h4>
+
+<!-- Modal -->
+<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog chat-modal" role="document">
+        <div class="modal-content chat-content">
+            <div class="modal-header chat-header">
+                <h5 class="modal-title chat-title">
+                    Chat
+                </h5>
             </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
+            <div class="modal-body chat-body">
+                <div class="col-sm-3 col-sm-offset-4 frame">
+                    <ul>
+                        <li style="width:100%;list-style: none;">
+                            <div class="msj macro">
+                                <div class="avatar">
+                                    <img class="img-circle" style="width:100%;" src="/profile_icon.png" /></div>
+                                <div class="text text-l">
+                                    <p>Hello</p>
+                                    <p><small>now</small></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li style="width:100%;list-style: none;">
+                            <div class="msj-rta macro">
+                                <div class="text text-r">
+                                    <p>Hud ?</p>
+                                    <p><small>just now</small></p>
+                                </div>
+                                <div class="avatar" style="padding:0px 0px 0px 10px !important">
+                                    <img class="img-circle" style="width:100%;" src="/aquaman-profile.png" />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div>
+                        <div class="msj-rta macro sendBox">
+                            <div class="text text-r" >
+                                <input class="mytext" placeholder="Type a message"/>
+                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+            <!--<div class="modal-footer">-->
+                <!--<div class="col-sm-3 col-sm-offset-4 frame">-->
+                    <!---->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="callModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Call Header</h4>
+
+
+<!-- Modal -->
+<div class="modal fade" id="callModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog call-modal" role="document">
+        <div class="modal-content call-content">
+            <div class="modal-header call-header">
+                <h5 class="modal-title call-title" id="exampleModalLabel">
+                    Would you like to make a call ?
+                </h5>
             </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
+            <div class="modal-body call-body">
+                You are about to make a phone call to <br/>
+                <b>079 200 3425</b>,
+                <br/>
+                standard rates apply.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6 centered call-action separator">
+                        <p class="actions">No</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 centered text-action">
+                        <p class="actions">Yes</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -166,5 +216,6 @@
 <script src="/tracking.js"></script>
 <!-- Bootstrap -->
 <script src="/bootstrap.min.js"></script>
+
 </body>
 </html>
