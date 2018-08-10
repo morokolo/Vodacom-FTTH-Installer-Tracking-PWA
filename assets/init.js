@@ -263,12 +263,14 @@
               if(typeOfUser == "installer")
               {
                   console.log('installer....');
-                  //$('.top-floating-panel').show();
+                  $('.navigateFab').show();
+                  $('.registration').hide();
               }
               else
               {
                   console.log('customer....');
-                  //$('.customer-nav-panel').show();
+                  $('.registration').show();
+                  $('.navigateFab').hide();
               }
           }
           else
