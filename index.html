@@ -1,229 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'/>
-    <title></title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Parallax Template - Materialize</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet'/>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
     <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet'/>
-    <link rel="shortcut icon" type="image/icon" href="favicon.ico"/>
-    <!-- Font Awesome -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Bootstrap -->
-
-    <!-- Main Style -->
-    <link href="style.css" rel="stylesheet">
-    <!-- Open Sans for body font -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
-    <!-- Montserrat for title -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <script src="/socket.io/socket.io.js"></script>
-
     <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
-
-    <link href="bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="animate_content">
+<body>
 
-<section class="tracking_page ">
-
-    <section class="customer-nav-panel" style="display: none;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <img src="vodacom_logo.png">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="top-floating-panel" style="display: none;">
-        <div class="container">
-            <div class="row installer-heading-container">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <h4>En Route</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-9 col-sm-9 col-xs-9 address-block">
-                    Vodacom Midrand office staff entrance
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 navigation-block" id="navigateToAddress">
-                    <i class="fa fa-location-arrow"></i>
-                    <p class="nav-label">navigate</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!--<div id="eta-info">-->
-    <!--<span class="time">&#45;&#45;:&#45;&#45;</span>-->
-    <!--</div>-->
-
-    <!--id="bottom-bar"-->
-    <section class="bottom-floating-panel">
-        <div class="container bottom-header">
-            <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <img src="profile_icon.png">
-                </div>
-                <div class="col-md-9 col-sm-9 col-xs-9">
-                   <div class="row">
-                       <div class="col-md-8 col-sm-8 col-xs-8">
-                           <p class="name">Samantha Berry</p>
-                           <p class="company">OpenServe Installer</p>
-                           <p class="status">status: en-route</p>
-                       </div>
-                       <div class="col-md-4 col-sm-4 col-xs-4 navigation-block" style="display: none;" >
-                           <i class="fa fa-location-arrow"></i>
-                           <p class="nav-label">navigate</p>
-                       </div>
-                   </div>
-                </div>
-            </div>
-
-            <div class="row border-row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <p class="extra-info">ORDER NUMBER: SO180406-124567</p>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-4 centered call-action">
-                    <i class="fa fa-phone"></i>
-                    <p class="actions">Call Installer</p>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-4 centered text-action">
-                    <i class="fa fa-comment"></i>
-                    <p class="actions">Text Installer</p>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-4 centered share-action">
-                    <i class="fa fa-share-alt"></i>
-                    <p class="actions">Share Location</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <div id="map"></div>
-
-
-    <section class="error" style="display: none;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 centered">
-                    <p class="error-text">Oops!!! The page that you are looking for is not available.</p>
-                    <img src="no-car.png" class="error-image">
-                </div>
-            </div>
-        </div>
-    </section>
-
-</section>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog chat-modal" role="document">
-        <div class="modal-content chat-content">
-            <div class="modal-header chat-header">
-                <h5 class="modal-title chat-title">
-                    Chat
-                </h5>
-            </div>
-            <div class="modal-body chat-body">
-                <div class="col-sm-3 col-sm-offset-4 frame">
-                    <ul>
-                        <li style="width:100%;list-style: none;">
-                            <div class="msj macro">
-                                <div class="avatar">
-                                    <img class="img-circle" style="width:100%;" src="/profile_icon.png" /></div>
-                                <div class="text text-l">
-                                    <p>Hello</p>
-                                    <p><small>now</small></p>
-                                </div>
-                            </div>
-                        </li>
-                        <li style="width:100%;list-style: none;">
-                            <div class="msj-rta macro">
-                                <div class="text text-r">
-                                    <p>Hud ?</p>
-                                    <p><small>just now</small></p>
-                                </div>
-                                <div class="avatar" style="padding:0px 0px 0px 10px !important">
-                                    <img class="img-circle" style="width:100%;" src="/aquaman-profile.png" />
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div>
-                        <div class="msj-rta macro sendBox">
-                            <div class="text text-r" >
-                                <input class="mytext" placeholder="Type a message"/>
-                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--<div class="modal-footer">-->
-                <!--<div class="col-sm-3 col-sm-offset-4 frame">-->
-                    <!---->
-                <!--</div>-->
-            <!--</div>-->
-        </div>
+<nav class="transparent" role="navigation">
+    <div class="nav-wrapper container">
+        <img src="vodacom_logo.png" class="sidenav-trigger">
     </div>
-</div>
+</nav>
 
+<div id="map"></div>
+<div class="row user-card">
+    <div class="col s12 m12">
+        <div class="card">
 
-
-<!-- Modal -->
-<div class="modal fade" id="callModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog call-modal" role="document">
-        <div class="modal-content call-content">
-            <div class="modal-header call-header">
-                <h5 class="modal-title call-title" id="exampleModalLabel">
-                    Would you like to make a call ?
-                </h5>
+            <div class="progress progress-thin">
+                <div class="indeterminate"></div>
             </div>
-            <div class="modal-body call-body">
-                You are about to make a phone call to <br/>
-                <b>079 200 3425</b>,
-                <br/>
-                standard rates apply.
+            <div class="card-image">
+                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">navigation</i></a>
             </div>
-            <div class="modal-footer">
+            <div class="card-content">
+
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-6 centered call-action no-option separator">
-                        <p class="actions">No</p>
+                    <div class="col s2 m2 l2">
+                        <img src="noimage_male.png" class="profile-icon">
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6 centered call-action yes-option">
-                        <p class="actions">Yes</p>
+                    <div class="col s7 m7 l7">
+                        <p class="normal-paragraph name-tag">Samantha Berry</p>
+                        <p class="normal-paragraph">SO180406-124567</p>
+                        <p class="normal-paragraph last-paragraph">Status: En-route</p>
+                    </div>
+                    <div class="col s3 m3 l3 registration">
+                        <a class="btn-flat disabled">CZ61TWGP</a>
                     </div>
                 </div>
+
+                <div class="divider"></div>
+
+
+                <div class="row">
+                    <div class="col s4 icon-center">
+                        <a class="waves-effectmodal-trigger modal-trigger" href="#CallModal">
+                            <i class="material-icons">call</i>
+                            <span>Call Installer</span>
+                        </a>
+                    </div>
+                    <div class="col s4 icon-center">
+                        <a class="waves-effectmodal-trigger modal-trigger" href="#modal1">
+                            <i class="material-icons">chat_bubble_outline</i>
+                            <span>Text Installer</span>
+                        </a>
+                    </div>
+                    <div class="col s4 icon-center">
+                        <a class="waves-effectmodal-trigger modal-trigger" href="#modal1">
+                            <i class="material-icons">share</i>
+                            <span>Share Location</span>
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 
 
+<!-- Modal Call -->
+<div id="CallModal" class="modal modal-fixed-footer call-popup">
+    <div class="modal-content call-content">
+        <h4>Would you like to make a call ?</h4>
 
-<!--<section id="installer_loader" style="display: none;">-->
-<!--<p class="loading-message">Finding your installer ...</p>-->
-<!--</section>-->
+        <p> You are about to make a phone call to <br/>
+            <b>079 200 3425</b>,
+            <br/>
+            standard rates apply.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+    </div>
+</div>
 
-<script src="/tracking.js"></script>
-<!-- Bootstrap -->
-<script src="/bootstrap.min.js"></script>
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="/materialize.js"></script>
+<script src="/init.js"></script>
 
 </body>
 </html>
