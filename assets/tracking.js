@@ -23,6 +23,10 @@ $(function(){
     var socket = io.connect('http://localhost:8080');
 
 
+    if(typeOfUser =='installer') {
+        $('.navigation-block').show();
+    }
+
     setTimeout(function() {
         $('.tracking_page').removeClass('animate_content');
     }, 2500);
@@ -302,6 +306,17 @@ $(function(){
         e.preventDefault();
         alert('sharing');
     });
+
+    $(".no-option").click(function (e) {
+        e.preventDefault();
+        alert('dont call');
+    });
+
+    $(".yes-option").click(function (e) {
+        e.preventDefault();
+        alert('make the  call');
+    });
+
 
 
     // $(".bottom-floating-panel").toggle(function(){
