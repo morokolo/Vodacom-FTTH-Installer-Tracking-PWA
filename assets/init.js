@@ -183,13 +183,13 @@
                   map.removeSource("start");
               }
               //
-              // if (map.getLayer("car")) {
-              //     map.removeLayer("car");
-              // }
-              //
-              // if (map.getSource("car")) {
-              //     map.removeSource("car");
-              // }
+              if (map.hasImage("car")) {
+                  map.removeImage("car");
+              }
+
+              if (map.getSource("car")) {
+                  map.removeSource("car");
+              }
 
 
 
@@ -210,47 +210,47 @@
                   }
               });
 
-              map.addLayer({
-                  id: 'start',
-                  type: 'circle',
-                  source: {
-                      type: 'geojson',
-                      data: {
-                          type: 'Feature',
-                          geometry: {
-                              type: 'Point',
-                              coordinates: start
-                          }
-                      }
-                  }
-              });
+              // map.addLayer({
+              //     id: 'start',
+              //     type: 'circle',
+              //     source: {
+              //         type: 'geojson',
+              //         data: {
+              //             type: 'Feature',
+              //             geometry: {
+              //                 type: 'Point',
+              //                 coordinates: start
+              //             }
+              //         }
+              //     }
+              // });
 
               //
-              // map.loadImage('/installer-car.png', function(error, image) {
-              //     if (error) throw error;
-              //     map.addImage('car', image);
-              //     map.addLayer({
-              //         "id": "start",
-              //         "type": "symbol",
-              //         "source": {
-              //             "type": "geojson",
-              //             "data": {
-              //                 "type": "FeatureCollection",
-              //                 "features": [{
-              //                     "type": "Feature",
-              //                     "geometry": {
-              //                         "type": "Point",
-              //                         "coordinates": start
-              //                     }
-              //                 }]
-              //             }
-              //         },
-              //         "layout": {
-              //             "icon-image": "car",
-              //             "icon-size": 0.06
-              //         }
-              //     });
-              // });
+              map.loadImage('/installer-car.png', function(error, image) {
+                  if (error) throw error;
+                  map.addImage('car', image);
+                  map.addLayer({
+                      "id": "start",
+                      "type": "symbol",
+                      "source": {
+                          "type": "geojson",
+                          "data": {
+                              "type": "FeatureCollection",
+                              "features": [{
+                                  "type": "Feature",
+                                  "geometry": {
+                                      "type": "Point",
+                                      "coordinates": start
+                                  }
+                              }]
+                          }
+                      },
+                      "layout": {
+                          "icon-image": "car",
+                          "icon-size": 0.04
+                      }
+                  });
+              });
 
               $('.progress').hide();
 
