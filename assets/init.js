@@ -87,6 +87,7 @@
       function setInstallerStartingLocation(postion) {
           $('.bottom-floating-panel').show();
           console.log('Setting Installer Location Here');
+
           if(typeOfUser =='installer'){
               firebase.database().ref('/tracking/' + salesOrderNumber).set({
                   // "longitude" : postion.coords.longitude,
@@ -95,6 +96,8 @@
                   "latitude" : postion.coords.latitude
               });
 
+              $('.navigateFab').show();
+              $('.registration').hide();
               $('.installer-panel').show();
               InstallerLocation = [postion.coords.longitude, postion.coords.latitude];
               setDrivingRouteAndShowProgress(InstallerLocation, CustomersAddress);
@@ -107,7 +110,8 @@
                   InstallerLocation = [ coords.val().longitude, coords.val().latitude];
                   setDrivingRouteAndShowProgress(InstallerLocation, CustomersAddress);
               });
-
+              $('.registration').show();
+              $('.navigateFab').hide();
           }
 
 
