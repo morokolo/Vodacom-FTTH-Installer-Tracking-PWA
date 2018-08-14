@@ -7,6 +7,7 @@
 
 
 
+
       var config = {
           apiKey: "AIzaSyBqox5fCUf8-Ja3K7_Wjf7Q9bgIGGePSvw",
           authDomain: "ftthtracking.firebaseapp.com",
@@ -26,6 +27,7 @@
       var username = getQueryVariable("username");
       var salesOrderNumber = getQueryVariable("salesordernumber");
       var typeOfUser = getQueryVariable("type");
+      var isRating = getQueryVariable("rating");
       var socket = io.connect('http://localhost:8080');
 
 
@@ -90,8 +92,6 @@
 
           if(typeOfUser =='installer'){
               firebase.database().ref('/tracking/' + salesOrderNumber).set({
-                  // "longitude" : postion.coords.longitude,
-                  // "latitude" : postion.coords.latitude
                   "longitude" : postion.coords.longitude,
                   "latitude" : postion.coords.latitude
               });
@@ -138,8 +138,6 @@
               }
           });
 
-
-
       }
 
       function getQueryVariable(variable)
@@ -159,13 +157,20 @@
           $('#installer_loader').css('display','block');
 
           var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+
           $.ajax({
               method: 'GET',
               url: directionsRequest,
           }).done(function(data){
 
-              // $('#installer_loader').css('display','none');
-              // $( "#installer_loader" ).remove();
+              var distance = (data.routes[0].distance)/1000;
+              var duration = (data.routes[0].duration/60);
+              console.log('duration', duration);
+              var fifteenMeters = 0.015;
+              if(distance < fifteenMeters && typeOfUser =='installer')
+              {
+                  $('.arrived-button').show();
+              }
 
               if (map.getLayer("route")) {
                   map.removeLayer("route");
@@ -190,7 +195,6 @@
               if (map.getSource("car")) {
                   map.removeSource("car");
               }
-
 
 
 
@@ -309,6 +313,9 @@
       //         });
       // });
 
+
+
+
       $(".call-action").click(function (e) {
           $("#callModal").modal()
       });
@@ -359,6 +366,11 @@
           e.preventDefault();
           navigate( -26.043496, 28.1443323)
           //window.location = "https://maps.google.com/maps?q=Vodacom Midrand office staff entrance";
+      });
+
+      $('#user-rating-form').on('change','[name="rating"]',function(){
+          alert('i am clicked');
+          $('#selected-rating').text($('[name="rating"]:checked').val());
       });
 
       function navigate(lat, lng) {

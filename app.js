@@ -35,6 +35,11 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+// routing
+app.get('/installer-rating.html', function (req, res) {
+    res.sendFile(__dirname + '/installer-rating.html');
+});
+
 app.get('/installer', function (req, res) {
     res.sendFile(__dirname + '/installer.png');
 });

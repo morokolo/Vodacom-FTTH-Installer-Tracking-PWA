@@ -6131,7 +6131,6 @@ input[type=tel]:not(.browser-default),
 input[type=number]:not(.browser-default),
 input[type=search]:not(.browser-default),
 textarea.materialize-textarea {
-  background-color: transparent;
   border: none;
   border-bottom: 1px solid #9e9e9e;
   border-radius: 0;
@@ -6149,6 +6148,18 @@ textarea.materialize-textarea {
   transition: border .3s, -webkit-box-shadow .3s;
   transition: box-shadow .3s, border .3s;
   transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
+  line-height: normal;
+  overflow-y: hidden;
+  padding: 10px;
+  resize: none;
+  min-height: 3rem;
+  height: 15% !important;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 12px;
+  background: #fff !important;
+  border: 1px solid !important;
+  border-radius: 3px !important;
 }
 
 input:not([type]):disabled, input:not([type])[readonly="readonly"],
@@ -6222,9 +6233,9 @@ input[type=tel]:not(.browser-default):focus:not([readonly]),
 input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #26a69a;
-  -webkit-box-shadow: 0 1px 0 0 #26a69a;
-          box-shadow: 0 1px 0 0 #26a69a;
+  border-bottom: 1px solid #ffffff;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 input:not([type]):focus:not([readonly]) + label,
@@ -6240,7 +6251,7 @@ input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
 input[type=number]:not(.browser-default):focus:not([readonly]) + label,
 input[type=search]:not(.browser-default):focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
-  color: #26a69a;
+  color: #ffffff;
 }
 
 input:not([type]):focus.valid ~ label,
@@ -6515,7 +6526,7 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
 }
 
 .input-field.col label {
-  left: 0.75rem;
+  left: 1.3rem;
 }
 
 .input-field.col .prefix ~ label,
@@ -6528,7 +6539,7 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 1rem;
+  font-size: 13px;
   cursor: text;
   -webkit-transition: color .2s ease-out, -webkit-transform .2s ease-out;
   transition: color .2s ease-out, -webkit-transform .2s ease-out;
@@ -6673,13 +6684,11 @@ textarea {
 textarea.materialize-textarea {
   line-height: normal;
   overflow-y: hidden;
-  /* prevents scroll bar flash */
-  padding: .8rem 0 .8rem 0;
-  /* prevents text jump on Enter keypress */
+  padding: 10px;
   resize: none;
-  min-height: 3rem;
+  min-height: 6rem;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .hiddendiv {

@@ -26,11 +26,82 @@ html, body {
   bottom: 0;
   width: 100%;
 }
+
+.rate-installer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-image: url("../rating_bg.png");
+  background-size: contain;
+}
+
+.rate-title {
+  font-family: 'Open Sans';
+  margin: 0;
+  padding: 0;
+  text-transform: capitalize;
+}
+
+p.rate-subtitle {
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+}
+
+.rate-installer-container {
+  height: 80%;
+  margin-top: 20%;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+}
+.rate-installer-content {
+  background: #0000006b;
+  border-radius: 5px;
+  height: 90%;
+  border: 1px solid #b7b7b76b;
+  margin-top: 15%;
+}
+
+.rating-fab {
+  position: absolute;
+  right: 34%;
+  color: #ffffff !important;
+  font-weight: bolder;
+}
+.submit-rating {
+  margin-top: 5px;
+  color: #ffffff !important;
+  font-size: 13px;
+  letter-spacing: unset;
+  width: 100%;
+  background: #e60000;
+  text-transform: capitalize;
+}
+
+.rate-installer-name {
+  font-size: 17px !important;
+}
 .registration {
   padding-top: 35px !important;
 }
+
+.arrived-button {
+
+
+}
+
+.arrived-cta {
+  margin-top: 5px;
+  color: #ffffff !important;
+  font-size: 13px;
+  letter-spacing: unset;
+  width: 100%;
+  background: #000;
+}
 .mapboxgl-ctrl-bottom-left {
-  bottom: 25% !important;
+  bottom: 27% !important;
   left: 0;
 }
 
@@ -125,6 +196,16 @@ i.material-icons {
   margin-bottom: 10px;
 }
 
+.white-divider {
+  height: 1px;
+  overflow: hidden;
+  background-color: #ffffff;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
 .row {
   margin-bottom: 0;
 }
@@ -171,4 +252,90 @@ p {
 
 footer.page-footer {
   margin: 0;
+}
+
+.rating {
+  float: none;
+  width: 60%;
+  margin: 0 auto;
+}
+.no-margin-tag {
+  margin: 0;
+}
+.profile-icon-installer {
+  text-align: center;
+  width: 25%;
+  height: 25%;
+}
+
+.image-container {
+  position: relative;
+  margin-top: -10%;
+  margin-bottom: 3%;
+}
+
+/*.materialize-textarea {*/
+  /*line-height: normal;*/
+  /*overflow-y: hidden;*/
+  /*padding: .8rem 0 .8rem 0;*/
+  /*resize: none;*/
+  /*min-height: 3rem;*/
+  /*-webkit-box-sizing: border-box;*/
+  /*box-sizing: border-box;*/
+  /*height: 48px !important;*/
+  /*background: #fff !important;*/
+  /*border: 1px solid !important;*/
+  /*border-radius: 3px !important;*/
+/*}*/
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+  clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+  float: right;
+  width: 38px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 200%;
+  line-height: 1.2;
+  color: #fff;
+  text-shadow: none;
+  margin-top: 10%;
+}
+
+.rating:not(:checked) > label:before {
+  content: '★ ';
+}
+
+.rating > input:checked ~ label {
+  color: #f70;
+  text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: gold;
+  text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  color: #e60000;
+  text-shadow: none;
+}
+
+.rating > label:active {
+  position:relative;
+  top:2px;
+  left:2px;
 }
