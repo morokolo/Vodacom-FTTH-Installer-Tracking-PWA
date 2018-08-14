@@ -33,7 +33,7 @@ html, body {
   bottom: 0;
   width: 100%;
   background-image: url("../rating_bg.png");
-  background-size: contain;
+  background-size: cover;
 }
 
 .rate-title {
